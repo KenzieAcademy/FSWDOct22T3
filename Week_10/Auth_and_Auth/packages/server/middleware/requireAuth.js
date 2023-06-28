@@ -12,8 +12,10 @@ export default async function requireAuth(req, res, next) {
 
   const accessToken = authHeader.replace("Bearer ", "");
 
-  jwt.verify(accessToken, keys.app.accessTokenSecret, (err, payload) => {
+  jwt.verify(accessToken, keys.auth.accessTokenSecret, (err, payload) => {
     if (err) {
+      if (err.name === "TokenExpiredError")
+        return res.status(401).json({ error: "TokenExpiredError" });
       return res.status(401).json({ message: "Unauthorized error" });
     }
 

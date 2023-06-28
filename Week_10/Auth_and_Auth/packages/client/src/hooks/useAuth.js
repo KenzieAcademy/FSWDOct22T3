@@ -21,6 +21,16 @@ const useAuth = () => {
     });
   };
 
+  const refreshToken = async () =>
+    api.get("/auth/refresh").then((response) => {
+      const { token, user } = response.data;
+      setAuth({
+        isAuthenticated: true,
+        user: user,
+      });
+      setAuthHeaders(token);
+    });
+
   const signOut = () => {};
 
   return {
@@ -28,6 +38,7 @@ const useAuth = () => {
     signUp,
     signIn,
     signOut,
+    refreshToken,
   };
 };
 

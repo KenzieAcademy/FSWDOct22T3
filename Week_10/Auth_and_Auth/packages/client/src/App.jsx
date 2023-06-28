@@ -3,8 +3,21 @@ import "./App.css";
 import { Header, LoginForm } from "./components";
 import { AuthPage, ProtectedPage } from "./pages";
 import RegisterForm from "./components/RegisterForm/RegisterForm";
+import { useEffect, useState } from "react";
+import useAuth from "./hooks/useAuth";
 
 function App() {
+  const [loading, setLoading] = useState(true);
+  const { refreshToken } = useAuth();
+
+  useEffect(() => {
+    refreshToken()
+      .then(() => setLoading(false))
+      .catch(() => setLoading(false));
+  }, []);
+
+  if (loading) return <p>Pretend this is a spinner</p>;
+
   return (
     <>
       <Header />
