@@ -97,7 +97,6 @@ export async function refreshTokens(req, res, next) {
      */
     const candidateRefreshToken = req.signedCookies[keys.auth.cookieName];
     if (!candidateRefreshToken) {
-      console.log("No refresh token provided");
       return res.status(401).json({ error: "Unauthorized error" });
     }
 

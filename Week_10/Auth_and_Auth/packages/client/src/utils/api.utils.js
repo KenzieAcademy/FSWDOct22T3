@@ -35,8 +35,7 @@ api.interceptors.response.use(
 
 export const setAuthHeaders = (token) => {
   if (!token) delete api.defaults.headers.common["Authorization"];
-
-  api.defaults.headers.common["Authorization"] = `Bearer ${token}`;
+  else api.defaults.headers.common["Authorization"] = `Bearer ${token}`;
 };
 
 export default api;
